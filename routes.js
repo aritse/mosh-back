@@ -1,29 +1,41 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcrypt");
 const db = require("./models");
 
 // auth api routes
-router.post("/auth/signup", (req, res) => {
-  db.User.create(req.body)
-    .then(user => res.json(user))
-    .catch(err => res.status(500).json(err));
-});
+app.post("/api/auth/signup", (req, res) => {
+  db.User.create(req.body).then(userData => {
+    res.json(userData);
+  })
+})
 
-router.post("/auth/login", (req, res) => {
+app.post("/api/auth/login", (req, res) => {
   db.User.findOne({
     where: {
-      email: req.body.email
+      name: req.body.name
+    }
+  }).then(dbUser=>{
+    if(bcrypt.compareSync(req.body.password,dbUser.password)){
+      req.session.user={
+        id:dbUser.id,
+        name:dbUser.name
+      }
+      res.json(req.session.user)
+    }
+    else{
+      res.status(401).json("not logged in")
     }
   })
-    .then(user => {
-      if (user.password === req.body.password) {
-        res.json("success");
-      } else {
-        res.status(401).json("failure");
-      }
-    })
-    .catch(err => res.status(401).json(err));
-});
+})
+
+app.get('/api/auth/loggedinuser',(req,res)=>{
+  if(req.session.user){
+    res.json(req.session.user)
+  } else {
+    res.status(401).json("not logged in")
+  }
+})
 
 // user api routes
 router.get("/user/all", (req, res) => {
