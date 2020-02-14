@@ -12,12 +12,12 @@ module.exports = function(sequelize, DataTypes) {
           }
         },
         password: {
-        type:DataTypes.STRING,
-        allowNull: false,
-        validate:{
+          type: DataTypes.STRING,
+          allowNull: false,
+          validate: {
             len:[8]
+          }
         }
-    }
     });
 ​
     User.associate = models => {
@@ -25,12 +25,10 @@ module.exports = function(sequelize, DataTypes) {
         User.hasOne(models.Profile, { onDelete: "CASCADE" });
         User.hasMany(models.Swipe, { onDelete: "CASCADE" });
         User.hasMany(models.Role, { onDelete: "CASCADE" });
-        User.hasMany(models.Message, { onDelete: "CASCADE" })
+        User.hasMany(models.Message, { onDelete: "CASCADE" });
     }
 
-    User.beforeCreate(function(user) {
-        user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
-      });
+    User.beforeCreate(user=>user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null));
     
     return User;
 };

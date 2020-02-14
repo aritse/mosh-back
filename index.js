@@ -1,6 +1,20 @@
-const express = require("express");
+const express = require('express');
+const cors = require("cors");
+const session = require("express-session");
 
 const app = express();
+const PORT = process.env.PORT || 8080;
+
+app.use(cors({
+  origin: ["http://localhost:3000"],
+  credentials: true
+}));
+// app.use(cors({
+//     origin:["https://*OUR APP NAME HERE*.herokuapp.com"]
+// }));
+app.use(session({ secret: "something secret here", resave: true, saveUninitialized: true,cookie:{maxAge: 7200000} }));
+
+const db = require('./models');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -8,9 +22,6 @@ app.use(express.json());
 const routes = require("./routes");
 app.use("/api", routes);
 
-const port = 8080;
-
-const db = require("./models");
 db.sequelize.sync({ force: false }).then(() => {
-  app.listen(port, console.log(`express app is listening on http://localhost:${port}`));
+  app.listen(PORT, console.log(`express app is listening on http://localhost:${PORT}`));
 });
