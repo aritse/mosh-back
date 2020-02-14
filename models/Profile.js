@@ -6,6 +6,10 @@ module.exports = function(sequelize, DataTypes) {
     age: DataTypes.NUMBER
   });
 
+  Profile.associate = models => 
+    Profile.belongsTo(models.User);
+  };
+
   return Profile;
 };
 

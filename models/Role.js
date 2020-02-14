@@ -4,6 +4,10 @@ module.exports = function(sequelize, DataTypes) {
     expertise: DataTypes.STRING
   });
 
+  Role.associate = function(models) {
+    Role.belongsToMany(models.User);
+  };
+
   return Role;
 };
 

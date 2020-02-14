@@ -6,6 +6,8 @@ module.exports = function(sequelize, DataTypes) {
     message: DataTypes.TEXT
   });
 
+  Message.associate = models => Message.belongsTo(models.User);
+
   return Message;
 };
 

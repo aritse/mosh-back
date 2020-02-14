@@ -1,11 +1,13 @@
 module.exports = function(sequelize, DataTypes) {
-  const Basic = sequelize.define("Basic", {
+  const BasicInfo = sequelize.define("BasicInfo", {
     imageUrl: DataTypes.STRING,
     zipcode: DataTypes.STRING,
     catchPhrase: DataTypes.TEXT
   });
 
-  return Basic;
+  BasicInfo.associate = models => BasicInfo.belongsTo(models.User);
+
+  return BasicInfo;
 };
 
 // todo: add validation
