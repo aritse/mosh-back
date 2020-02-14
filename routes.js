@@ -4,13 +4,13 @@ const bcrypt = require("bcrypt");
 const db = require("./models");
 
 // auth api routes
-app.post("/api/auth/signup", (req, res) => {
+router.post("/auth/signup", (req, res) => {
   db.User.create(req.body).then(userData => {
     res.json(userData);
   })
 })
 
-app.post("/api/auth/login", (req, res) => {
+router.post("/auth/login", (req, res) => {
   db.User.findOne({
     where: {
       name: req.body.name
@@ -29,7 +29,7 @@ app.post("/api/auth/login", (req, res) => {
   })
 })
 
-app.get('/api/auth/loggedinuser',(req,res)=>{
+router.get('/auth/loggedinuser',(req,res)=>{
   if(req.session.user){
     res.json(req.session.user)
   } else {
