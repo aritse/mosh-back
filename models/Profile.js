@@ -3,12 +3,10 @@ module.exports = function(sequelize, DataTypes) {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
-    age: DataTypes.NUMBER
+    age: DataTypes.INTEGER
   });
 
-  Profile.associate = models => 
-    Profile.belongsTo(models.User);
-  };
+  Profile.associate = models => Profile.belongsTo(models.User);
 
   return Profile;
 };
