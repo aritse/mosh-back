@@ -1,8 +1,8 @@
 module.exports = function(sequelize, DataTypes) {
   const Message = sequelize.define("Message", {
-    senderId: DataTypes.NUMBER,
-    receiverId: DataTypes.NUMBER,
-    dateSent: DataTypes.DATETIME,
+    senderId: DataTypes.INTEGER,
+    receiverId: DataTypes.INTEGER,
+    dateSent: DataTypes.DATE,
     message: DataTypes.TEXT
   });
 

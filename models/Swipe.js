@@ -1,8 +1,8 @@
 module.exports = function(sequelize, DataTypes) {
   const Swipe = sequelize.define("Swipe", {
-    swiperId: DataTypes.number,
-    swipeeId: DataTypes.number,
-    liked: DataTypes.boolean
+    swiperId: DataTypes.INTEGER,
+    swipeeId: DataTypes.INTEGER,
+    liked: DataTypes.BOOLEAN
   });
 
   Swipe.associate = function(models) {
