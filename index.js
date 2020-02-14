@@ -52,6 +52,14 @@ app.post("/api/auth/login", (req, res) => {
   })
 })
 
+app.get('/api/auth/loggedinuser',(req,res)=>{
+  if(req.session.user){
+    res.json(req.session.user)
+  } else {
+    res.status(401).json("not logged in")
+  }
+})
+
 db.sequelize.sync({ force: false }).then(() => {
   app.listen(port, console.log(`express app is listening on http://localhost:${PORT}`));
 });
