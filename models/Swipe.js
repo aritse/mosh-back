@@ -5,6 +5,10 @@ module.exports = function(sequelize, DataTypes) {
     liked: DataTypes.boolean
   });
 
+  Swipe.associate = function(models) {
+    Swipe.belongsTo(models.User);
+  };
+
   return Swipe;
 };
 
