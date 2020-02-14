@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS `mosh_db`;
+CREATE DATABASE `mosh_db`;
