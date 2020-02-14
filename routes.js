@@ -4,22 +4,22 @@ const bcrypt = require("bcrypt");
 const db = require("./models");
 
 // auth api routes
-router.post("/auth/signup", (req, res) => {
+router.put("/auth/signup", (req, res) => {
   db.User.create(req.body).then(userData => {
     res.json(userData);
   })
 })
 
-router.post("/auth/login", (req, res) => {
+router.put("/auth/login", (req, res) => {
   db.User.findOne({
     where: {
-      name: req.body.name
+      email: req.body.email
     }
   }).then(dbUser=>{
     if(bcrypt.compareSync(req.body.password,dbUser.password)){
       req.session.user={
         id:dbUser.id,
-        name:dbUser.name
+        email:dbUser.email
       }
       res.json(req.session.user)
     }
