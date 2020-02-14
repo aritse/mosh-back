@@ -25,7 +25,14 @@ router.post("/auth/login", (req, res) => {
     .catch(err => res.status(401).json(err));
 });
 
-router.get("/auth/user/:id", (req, res) => {
+// user api routes
+router.get("/user/all", (req, res) => {
+  db.User.findAll()
+    .then(users => res.json(users))
+    .catch(err => res.status(500).json(err));
+});
+
+router.get("/user/:id", (req, res) => {
   db.User.findOne({
     where: {
       id: req.params.id
@@ -35,13 +42,7 @@ router.get("/auth/user/:id", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-router.get("/auth/all", (req, res) => {
-  db.User.findAll()
-    .then(users => res.json(users))
-    .catch(err => res.status(500).json(err));
-});
-
-router.put("/auth/update/:id", (req, res) => {
+router.put("/user/update/:id", (req, res) => {
   db.User.update(req.body, {
     where: {
       id: req.params.id
@@ -57,7 +58,7 @@ router.put("/auth/update/:id", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-router.delete("/auth/delete/:id", (req, res) => {
+router.delete("/user/delete/:id", (req, res) => {
   db.User.destroy({
     where: {
       id: req.params.id
@@ -72,12 +73,5 @@ router.delete("/auth/delete/:id", (req, res) => {
     })
     .catch(err => res.status(500).json(err));
 });
-
-// user api routes
-// router.get("/user/all", (req, res) => res.json("user api page"));
-// router.get("/user/:id", (req, res) => res.send("user api page"));
-// router.post("/user", (req, res) => res.send("user api page"));
-// router.update("/user/:id", (req, res) => res.send("user api page"));
-// router.delete("/user/:id", (req, res) => res.send("user api page"));
 
 module.exports = router;
