@@ -4,7 +4,8 @@
   "description": "mosh back-end",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./test/**/*.spec.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,11 @@
     "express-session": "^1.17.0",
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.0.1",
+    "sequelize-test-helpers": "^1.2.2",
+    "sinon": "^8.1.1"
   }
 }
