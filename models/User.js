@@ -1,7 +1,7 @@
-//npm package import, bcrypt does the encrypting for us
-var bcrypt = require('bcrypt');
-module.exports = function (sequelize, DataTypes) {
-  var User = sequelize.define('User', {
+const bcrypt = require("bcrypt");
+
+module.exports = function(sequelize, DataTypes) {
+  const User = sequelize.define("User", {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -19,15 +19,15 @@ module.exports = function (sequelize, DataTypes) {
       }
     }
   });
-  User.associate = function (models) {
-    // add associations here
-    // ex:User.hasMany(models.BlogPost);
+  User.associate = models => {
+    User.hasOne(models.BasicInfo, { onDelete: "CASCADE" });
+    User.hasOne(models.Profile, { onDelete: "CASCADE" });
+    User.hasMany(models.Swipe, { onDelete: "CASCADE" });
+    User.hasMany(models.Role, { onDelete: "CASCADE" });
+    User.hasMany(models.Message, { onDelete: "CASCADE" });
   };
-  //sequelize hook, will run before model instance is created and hash password
-  User.beforeCreate(function (user) {
-    user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
-  });
 
+  User.beforeCreate(user => (user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null)));
 
   return User;
 };
