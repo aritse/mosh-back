@@ -1,24 +1,50 @@
 const router = require("express").Router();
 const db = require("../models");
 
+router.post("", (req, res) => {
+  db.Message.create(req.body).then(messageData => {
+    res.json(messageData);
+  });
+});
+
 router.get("/all", (req, res) => {
-  db.User.findAll()
-    .then(users => res.json(users))
+  db.Message.findAll()
+    .then(messages => res.json(messages))
     .catch(err => res.status(500).json(err));
 });
 
 router.get("/:id", (req, res) => {
-  db.User.findOne({
+  db.Message.findOne({
     where: {
       id: req.params.id
     }
   })
-    .then(user => res.json(user))
+    .then(message => res.json(message))
+    .catch(err => res.status(500).json(err));
+});
+
+router.get("/sender/:id", (req, res) => {
+  db.Message.findAll({
+    where: {
+      senderId: req.params.id
+    }
+  })
+    .then(messages => res.json(messages))
+    .catch(err => res.status(500).json(err));
+});
+
+router.get("/receiver/:id", (req, res) => {
+  db.Message.findAll({
+    where: {
+      receiverId: req.params.id
+    }
+  })
+    .then(messages => res.json(messages))
     .catch(err => res.status(500).json(err));
 });
 
 router.put("/update/:id", (req, res) => {
-  db.User.update(req.body, {
+  db.Message.update(req.body, {
     where: {
       id: req.params.id
     }
@@ -34,7 +60,7 @@ router.put("/update/:id", (req, res) => {
 });
 
 router.delete("/delete/:id", (req, res) => {
-  db.User.destroy({
+  db.Message.destroy({
     where: {
       id: req.params.id
     }

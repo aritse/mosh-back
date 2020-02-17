@@ -21,9 +21,7 @@ const db = require("./models");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const routes = require("./routes");
-
-app.use("/api", routes);
+app.use("/api", require("./routes"));
 
 db.sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, console.log(`express app is listening on http://localhost:${PORT}`));
