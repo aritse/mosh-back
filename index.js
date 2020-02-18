@@ -1,8 +1,24 @@
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
+const socketio = require("socket.io");
+const http = require("http");
 
 const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
+
+io.on("connection", socket => {
+  console.log("new connection", socket.id);
+
+  socket.on("join", ({ senderName, receiverName }, callback) => {
+    console.log("sender:", senderName);
+    console.log("receiver:", receiverName);
+  });
+
+  socket.on("disconnect", () => console.log("disconnected"));
+});
+
 const PORT = process.env.PORT || 8080;
 
 app.use(
@@ -26,5 +42,5 @@ const routes = require("./routes");
 app.use("/api", routes);
 
 db.sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, console.log(`express app is listening on http://localhost:${PORT}`));
+  server.listen(PORT, console.log(`server is listening on http://localhost:${PORT}`));
 });
