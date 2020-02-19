@@ -10,9 +10,11 @@ app.use(cors({
   credentials: true
 }));
 app.use(session({ secret: "something secret here", resave: true, saveUninitialized: true,cookie:{maxAge: 7200000} }));
-// app.use(cors({
-//     origin:["https://*OUR APP NAME HERE*.herokuapp.com"]
-// }));
+app.use(cors({
+    // make sure so change this later in production
+    origin:["http://localhost:3000"],
+    credentials: true
+}));
 
 const db = require('./models');
 
