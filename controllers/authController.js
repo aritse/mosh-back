@@ -36,7 +36,6 @@ module.exports = {
         //delete session user, logging you out
         req.session.destroy(function () {
             res.send('successfully logged out')
-            // res.render("home");
         })
     }
 }
