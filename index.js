@@ -65,6 +65,6 @@ const routes = require("./routes");
 app.get("/", (req, res) => res.send("Welcome to the back-end of Mosh"));
 app.use(routes);
 
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync({ force: true }).then(() => {
   server.listen(PORT, () => console.log(`server is listening on http://localhost:${PORT}`));
 });
