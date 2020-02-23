@@ -17,11 +17,13 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         len: [8]
       }
-    }
+    },
+    zipcode: DataTypes.STRING,
+    firstName: DataTypes.STRING,
+    lastName: DataTypes.STRING
   });
   User.associate = models => {
     User.hasOne(models.BasicInfo, { onDelete: "CASCADE" });
-    User.hasOne(models.Profile, { onDelete: "CASCADE" });
     User.hasMany(models.Swipe, { onDelete: "CASCADE" });
     User.hasMany(models.Role, { onDelete: "CASCADE" });
     User.hasMany(models.Message, { onDelete: "CASCADE" });

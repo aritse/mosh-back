@@ -13,10 +13,12 @@ module.exports = {
                 email: req.body.email
             }
         }).then(dbUser => {
+            console.log(dbUser)
             if (bcrypt.compareSync(req.body.password, dbUser.password)) {
                 req.session.user = {
                     id: dbUser.id,
-                    email: dbUser.email
+                    email: dbUser.email,
+                    firstName: dbUser.firstName
                 }
                 res.json(req.session.user)
             }
@@ -36,7 +38,6 @@ module.exports = {
         //delete session user, logging you out
         req.session.destroy(function () {
             res.send('successfully logged out')
-            // res.render("home");
         })
     }
 }
