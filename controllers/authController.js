@@ -3,9 +3,10 @@ const db = require("../models");
 
 module.exports = {
     signUp: function (req, res) {
-        db.User.create(req.body).then(userData => {
-            res.json(userData);
-        })
+        db.User.create(req.body)
+            .then(userData => {
+                res.json(userData);
+            })
     },
     logIn: function (req, res) {
         db.User.findOne({
