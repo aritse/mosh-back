@@ -1,13 +1,13 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   const Swipe = sequelize.define("Swipe", {
     swiperId: DataTypes.INTEGER,
     swipeeId: DataTypes.INTEGER,
     liked: DataTypes.BOOLEAN
   });
 
-  Swipe.associate = function(models) {
-    Swipe.belongsTo(models.User);
-  };
+  // Swipe.associate = function(models) {
+  //   Swipe.belongsTo(models.User);
+  // };
 
   return Swipe;
 };
