@@ -22,7 +22,7 @@ const db = require("./models");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(express.static(__dirname + '/public'));
 app.use(
   cors({
     origin: ["http://localhost:3000"],
@@ -39,12 +39,12 @@ db.sequelize.sync({ force: false }).then(() => {
 
 function handleSocket(socket) {
   // Accept a login event with user's data
-  socket.on("login", function(userdata) {
+  socket.on("login", function (userdata) {
     socket.handshake.session.userdata = userdata;
     socket.handshake.session.save();
   });
 
-  socket.on("logout", function(userdata) {
+  socket.on("logout", function (userdata) {
     if (socket.handshake.session.userdata) {
       delete socket.handshake.session.userdata;
       socket.handshake.session.save();
