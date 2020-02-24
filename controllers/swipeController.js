@@ -5,7 +5,7 @@ module.exports = {
     // route: /api/user/new
     swipeRight: function (req, res) {
         db.Swipe.create({
-            swiperId: req.session.userId,
+            swiperId: req.session.user.id,
             swipeeId: req.params.id,
             liked: true
         }).then(function (data) {
@@ -17,7 +17,7 @@ module.exports = {
     },
     swipeLeft: function (req, res) {
         db.Swipe.create({
-            swiperId: req.session.userId,
+            swiperId: req.session.user.id,
             swipeeId: req.params.id,
             liked: false
         }).then(function (data) {
@@ -33,8 +33,8 @@ module.exports = {
                 `SELECT Users.Id, Users.email, Users.firstName, Users.lastName, b.ImageUrl
                 FROM Users
                 LEFT JOIN Basicinfos b ON b.UserId = Users.id
-                WHERE Users.Id != ${req.session.userId || 1} 
-                AND Users.Id NOT IN (SELECT swipes.swipeeId FROM swipes WHERE swipes.swiperId = ${req.session.userId || 1});
+                WHERE Users.Id != ${req.session.user.id || 1} 
+                AND Users.Id NOT IN (SELECT swipes.swipeeId FROM swipes WHERE swipes.swiperId = ${req.session.user.id || 1});
                 `);
             res.json(results);
         } catch (e) {
@@ -47,7 +47,7 @@ module.exports = {
             const [swipeeIds, metadata] = await db.sequelize.query(
                 `SELECT Swipes.swiperId 
                 FROM Swipes 
-                WHERE Swipes.swipeeId = ${req.session.userId || 1} AND liked = true;
+                WHERE Swipes.swipeeId = ${req.session.user.id || 1} AND liked = true;
                 `);
             res.json(swipeeIds);
         } catch (err) {
@@ -60,8 +60,8 @@ module.exports = {
             const [swipes, metadata] = await db.sequelize.query(
                 `SELECT * 
                     FROM Swipes 
-                    WHERE swiperId = ${req.session.userId || 1} AND liked = true
-                    AND swipeeId IN (SELECT swiperId FROM swipes WHERE swipeeId = ${req.session.userId || 1} AND liked = true);
+                    WHERE swiperId = ${req.session.user.id || 1} AND liked = true
+                    AND swipeeId IN (SELECT swiperId FROM swipes WHERE swipeeId = ${req.session.user.id || 1} AND liked = true);
                 `);
             res.json(swipes);
         } catch (err) {

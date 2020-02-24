@@ -10,6 +10,7 @@ module.exports = {
             res.json(data);
         }).catch(function (err) {
             console.error(err);
+            res.status(500).json(err.message);
         });
     },
     // Get route for retrieving a single user
@@ -23,6 +24,7 @@ module.exports = {
             res.json(data);
         }).catch(function (err) {
             console.error(err);
+            res.status(500).json(err.message);
         });
     },
     // POST route for saving a new user
@@ -31,13 +33,14 @@ module.exports = {
         db.User.create({
             email: req.body.email,
             password: req.body.password
-            
+
         })
             .then(function (data) {
                 // return data
                 res.json(data);
             }).catch(function (err) {
                 console.error(err);
+                res.status(500).json(err.message);
             })
     },
     // DELETE route for deleting user
@@ -51,20 +54,21 @@ module.exports = {
             res.json(data);
         }).catch(function (err) {
             console.error(err);
+            res.status(500).json(err.message);
         });
     },
     // PUT route for updating user
     // route: /api/user/:id
-    updateUser: function (req, res) {
-        db.User.update(
-            req.body, {
-            where: {
-                id: req.body.id
-            }
-        }).then(function (data) {
-            res.json(data);
-        }).catch(function (err) {
-            console.error(err);
-        });
+    updateUser: async function (req, res) {
+        try {
+            const userData = await db.User.findOne({ id: req.params.id });
+            userData.password = req.body.password;
+            await userData.save({ fields: ['password'] });
+            let { id, firstName, lastName, email, zipcode } = userData;
+            const result = { id, firstName, lastName, email, zipcode };
+            res.json(result);
+        } catch (err) {
+            res.status(500).json(err.message);
+        }
     }
 }
