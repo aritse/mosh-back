@@ -4,11 +4,13 @@ var userRoutes = require("./userRoutes");
 var authRoutes = require("./authRoutes");
 var chatRoutes = require("./chatRoutes");
 var swipeRoutes = require("./swipeRoutes");
+var messageRoutes = require("./messageRoutes");
 
 // route to this point: /api
 router.use("/user", userRoutes);
 router.use("/auth", authRoutes);
 router.use("/chat", chatRoutes);
 router.use("/swipe", swipeRoutes);
+router.use("/message", messageRoutes);
 
 module.exports = router;
