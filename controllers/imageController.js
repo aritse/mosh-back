@@ -13,7 +13,7 @@ module.exports = {
     singleImage: function (req, res) {
         db.BasicInfo.findOne({
             where: {
-                id: req.session.user.id
+                UserId: req.session.user.id
             }
         }).then(function (data) {
             res.json(data);
