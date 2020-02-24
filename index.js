@@ -4,7 +4,6 @@ const expresssession = require("express-session");
 const socketio = require("socket.io");
 const http = require("http");
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
-const sharedsession = require("express-socket.io-session");
 
 const app = express();
 const server = http.createServer(app);
@@ -15,7 +14,6 @@ const session = expresssession({ secret: "something secret here", resave: true, 
 app.use(session);
 
 const io = socketio(server);
-io.use(sharedsession(session));
 io.on("connect", socket => handleSocket(socket));
 
 const db = require("./models");
@@ -38,19 +36,6 @@ db.sequelize.sync({ force: false }).then(() => {
 });
 
 function handleSocket(socket) {
-  // Accept a login event with user's data
-  socket.on("login", function(userdata) {
-    socket.handshake.session.userdata = userdata;
-    socket.handshake.session.save();
-  });
-
-  socket.on("logout", function(userdata) {
-    if (socket.handshake.session.userdata) {
-      delete socket.handshake.session.userdata;
-      socket.handshake.session.save();
-    }
-  });
-
   socket.on("join", ({ name, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, name, room });
 
