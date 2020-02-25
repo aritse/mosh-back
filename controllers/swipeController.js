@@ -56,6 +56,19 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    getMatchCount: async function (req, res) {
+        try {
+            const [matchCount, metadata] = await db.sequelize.query(
+                `SELECT COUNT(*)
+                FROM Swipes 
+                WHERE swiperId = ${req.session.user.id || 1} AND liked = true
+                AND swipeeId IN (SELECT swiperId FROM swipes WHERE swipeeId = ${req.session.user.id || 1} AND liked = true);
+            `
+            )
+        } catch (e) {
+            res.json(e.message);
+        }
+    },
     getMatches: async function (req, res) {
         try {
             // users with whom i have matched

@@ -1,14 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const config = require("./config");
 const expresssession = require("express-session");
 const socketio = require("socket.io");
 const http = require("http");
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
-require('dotenv').config();
+require("dotenv").config();
 const app = express();
 const server = http.createServer(app);
-
-const PORT = process.env.PORT || 8080;
 
 const session = expresssession({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { maxAge: 7200000 } });
 app.use(session);
@@ -21,9 +20,10 @@ const db = require("./models");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
+
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: [config.CORS_ORIGIN],
     credentials: true
   })
 );
@@ -33,7 +33,7 @@ app.get("/", (req, res) => res.send("server is up and running"));
 app.use(routes);
 
 db.sequelize.sync({ force: false }).then(() => {
-  server.listen(PORT, () => console.log(`server is listening on ${PORT}`));
+  server.listen(config.PORT, () => console.log(`server is listening on ${config.PORT}`));
 });
 
 function handleSocket(socket) {
