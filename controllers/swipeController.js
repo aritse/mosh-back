@@ -27,6 +27,7 @@ module.exports = {
         });
     },
     loadSwipees: async function (req, res) {
+        console.log(req.session || 'we aint found shit')
         try {
             // users i have not swiped on
             const [results, metadata] = await db.sequelize.query(
