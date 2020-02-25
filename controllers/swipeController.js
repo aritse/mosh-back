@@ -38,6 +38,7 @@ module.exports = {
                 `);
             res.json(results);
         } catch (e) {
+            console.error('Error: ' + e.message);
             res.status(500).json(e);
         }
     },
