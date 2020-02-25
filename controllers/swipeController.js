@@ -31,7 +31,7 @@ module.exports = {
         try {
             // users i have not swiped on
             const [results, metadata] = await db.sequelize.query(
-                `SELECT Users.Id, Users.email, Users.firstName, Users.lastName, b.ImageUrl
+                `SELECT Users.Id, Users.email, Users.firstName, Users.lastName, Users.zipcode, b.ImageUrl
                 FROM Users
                 LEFT JOIN Basicinfos b ON b.UserId = Users.id
                 WHERE Users.Id != ${req.session.user.id || 1} 
