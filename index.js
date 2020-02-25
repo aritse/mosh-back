@@ -20,15 +20,16 @@ const db = require("./models");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + "/public"));
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["https://moshsocial.herokuapp.com"],
     credentials: true
   })
 );
 
 const routes = require("./routes");
+app.get("/", (req, res) => res.send("server is up and running"));
 app.use(routes);
 
 db.sequelize.sync({ force: false }).then(() => {
