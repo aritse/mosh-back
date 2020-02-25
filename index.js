@@ -4,13 +4,13 @@ const expresssession = require("express-session");
 const socketio = require("socket.io");
 const http = require("http");
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
-
+require('dotenv').config();
 const app = express();
 const server = http.createServer(app);
 
 const PORT = process.env.PORT || 8080;
 
-const session = expresssession({ secret: "something secret here", resave: true, saveUninitialized: true, cookie: { maxAge: 7200000 } });
+const session = expresssession({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { maxAge: 7200000 } });
 app.use(session);
 
 const io = socketio(server);
