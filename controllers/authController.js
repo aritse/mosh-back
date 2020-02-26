@@ -6,7 +6,7 @@ module.exports = {
     db.User.create(req.body).then(userData => {
       const entry = { role: req.body.instrument, UserId: userData.dataValues.id };
       db.Role.create(entry).then(roleData => {
-        res.json(userData);
+        res.json(roleData);
       });
     });
   },
