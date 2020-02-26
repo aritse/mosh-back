@@ -20,7 +20,8 @@ module.exports = function (sequelize, DataTypes) {
     },
     zipcode: DataTypes.STRING,
     firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING
+    lastName: DataTypes.STRING,
+    bio: DataTypes.STRING
   });
   User.associate = models => {
     User.hasOne(models.BasicInfo, { onDelete: "CASCADE" });
