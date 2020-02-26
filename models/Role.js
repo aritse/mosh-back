@@ -1,7 +1,10 @@
 module.exports = function(sequelize, DataTypes) {
   const Role = sequelize.define("Role", {
     role: DataTypes.STRING,
-    expertise: DataTypes.STRING
+    expertise: {
+      type: DataTypes.STRING,
+      defaultValue: "Advanced"
+    }
   });
 
   Role.associate = function(models) {
