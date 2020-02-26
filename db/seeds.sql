@@ -1,16 +1,16 @@
 use mosh_db;
 -- WARNING THIS IS ONLY FOR AN EMPTY DATABASE, PLEASE UPDATE ID VALUES WHERE APPROPRIATE
 -- 5 users
-INSERT INTO users (id, email, password, zipcode, firstName, lastName, createdAt, updatedAt)
-VALUES (null, "cp@gmail.com", "mosh", 98103, "Chris","P",NOW(),NOW());
-INSERT INTO users (id, email, password, zipcode, firstName, lastName, createdAt, updatedAt)
-VALUES (null, "cp2@gmail.com", "mosh", 98103, "Cris", "G",NOW(),NOW());
-INSERT INTO users (id, email, password, zipcode, firstName, lastName, createdAt, updatedAt) 
-VALUES (null, "cp3@gmail.com", "mosh", 98103, "Kris", "H", NOW(), NOW());
-INSERT INTO users (id, email, password, zipcode, firstName, lastName, createdAt, updatedAt) 
-VALUES (null, "cp5@gmail.com", "mosh", 98103, "Kris", "H", NOW(), NOW());
-INSERT INTO users (id, email, password, zipcode, firstName, lastName, createdAt, updatedAt)
-	VALUES (null, "cp4@gmail.com", "mosh", 98103, "Kriss", "T", NOW(), NOW());
+INSERT INTO users (id, email, password, zipcode, firstName, lastName, bio, createdAt, updatedAt)
+VALUES (null, "cp@gmail.com", "mosh", 98103, "Chris","P", "Live Your Life", NOW(), NOW());
+INSERT INTO users (id, email, password, zipcode, firstName, lastName, bio, createdAt, updatedAt)
+VALUES (null, "cp2@gmail.com", "mosh", 98103, "Cris", "G", "Have Fun", NOW(), NOW());
+INSERT INTO users (id, email, password, zipcode, firstName, lastName, bio, createdAt, updatedAt) 
+VALUES (null, "cp3@gmail.com", "mosh", 98103, "Kris", "H", "Be Free", NOW(), NOW());
+INSERT INTO users (id, email, password, zipcode, firstName, lastName, bio, createdAt, updatedAt) 
+VALUES (null, "cp5@gmail.com", "mosh", 98103, "Kris", "H", "Do Drugs", NOW(), NOW());
+INSERT INTO users (id, email, password, zipcode, firstName, lastName, bio, createdAt, updatedAt)
+	VALUES (null, "cp4@gmail.com", "mosh", 98103, "Kriss", "T", "Jam on!", NOW(), NOW());
 -- WARNING THIS IS ONLY FOR AN EMPTY DATABASE, PLEASE UPDATE ID VALUES WHERE APPROPRIATE
 INSERT INTO swipes (id, swiperId, swipeeId, liked, createdAt, updatedAt) VALUES (null, 1, 3, true, NOW(), NOW());
 -- WARNING THIS IS ONLY FOR AN EMPTY DATABASE, PLEASE UPDATE ID VALUES WHERE APPROPRIATE
