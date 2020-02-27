@@ -21,7 +21,8 @@ module.exports = {
         req.session.user = {
           id: dbUser.id,
           email: dbUser.email,
-          firstName: dbUser.firstName
+          firstName: dbUser.firstName,
+          bio: dbUser.bio
         };
         res.json(req.session.user);
       } else {

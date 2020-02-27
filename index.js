@@ -9,7 +9,7 @@ require("dotenv").config();
 const app = express();
 const server = http.createServer(app);
 
-const session = expresssession({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { maxAge: 7200000 } });
+const session = expresssession({ secret: config.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { maxAge: 7200000 } });
 app.use(session);
 
 const io = socketio(server);
@@ -23,7 +23,8 @@ app.use(express.static(__dirname + "/public"));
 
 app.use(
   cors({
-    origin: [config.CORS_ORIGIN],
+    origin: ["https://moshsocial.herokuapp.com"],
+    // origin: [config.CORS_ORIGIN],
     credentials: true
   })
 );
