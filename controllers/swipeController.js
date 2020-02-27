@@ -73,9 +73,10 @@ module.exports = {
         try {
             // users with whom i have matched
             const [swipes, metadata] = await db.sequelize.query(
-                `SELECT  u.id, u.firstName, u.lastName
+                `SELECT  u.id, u.firstName, u.lastName, b.imageUrl
                     FROM Users u 
-                    LEFT JOIN swipes s ON swipes.swiperId = ${req.session.user.id} AND liked = true
+                    LEFT JOIN swipes s ON s.swiperId = ${req.session.user.id} AND liked = true
+                    JOIN basicinfos b ON b.UserId = u.id
                     WHERE s.swipeeId IN (SELECT swiperId FROM swipes WHERE swipeeId = ${req.session.user.id} AND liked = true);
                 `);
             res.json(swipes);
