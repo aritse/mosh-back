@@ -77,7 +77,8 @@ module.exports = {
                     FROM Users u 
                     LEFT JOIN swipes s ON s.swiperId = ${req.session.user.id} AND liked = true
                     JOIN basicinfos b ON b.UserId = u.id
-                    WHERE s.swipeeId IN (SELECT swiperId FROM swipes WHERE swipeeId = ${req.session.user.id} AND liked = true);
+                    WHERE s.swipeeId IN (SELECT swiperId FROM swipes WHERE swipeeId = ${req.session.user.id} AND liked = true)
+                    AND u.id != ${req.session.user.id};
                 `);
             res.json(swipes);
         } catch (err) {
