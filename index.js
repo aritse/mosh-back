@@ -23,8 +23,8 @@ app.use(express.static(__dirname + "/public"));
 
 app.use(
   cors({
-    origin: ["https://moshsocial.herokuapp.com"],
-    // origin: [config.CORS_ORIGIN],
+    // origin: ["https://moshsocial.herokuapp.com"],
+    origin: [config.CORS_ORIGIN],
     credentials: true
   })
 );
