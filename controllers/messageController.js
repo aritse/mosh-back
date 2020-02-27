@@ -20,7 +20,7 @@ module.exports = {
   getReceiverMessages: function(req, res) {
     db.Message.findAll({
       where: {
-        receiverId: req.params.id
+        receiverId: req.session.user.id
       }
     })
       .then(function(dbMessages) {
