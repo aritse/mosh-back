@@ -20,6 +20,10 @@ const db = require("./models");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', "*");
+  next();
+});
 
 app.use(
   cors({
