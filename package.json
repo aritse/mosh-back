@@ -1,6 +1,6 @@
 {
   "name": "mosh-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "mosh back-end",
   "main": "index.js",
   "scripts": {
