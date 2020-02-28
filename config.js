@@ -1,5 +1,5 @@
 const production = {
-  CORS_ORIGIN: ["https://uwproj3-ui.herokuapp.com/", "https://moshsocial.herokuapp.com"],
+  CORS_ORIGIN: "https://mosh-app.herokuapp.com",
   PORT: process.env.PORT,
   SESSION_SECRET: "yoursecret"
 };

@@ -9,17 +9,11 @@ require("dotenv").config();
 const app = express();
 const server = http.createServer(app);
 
-const session = expresssession({ secret: config.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { maxAge: 7200000 } });
-app.use(session);
 
 const io = socketio(server);
 io.on("connect", socket => handleSocket(socket));
 
 const db = require("./models");
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(__dirname + "/public"));
 
 app.use(
   cors({
@@ -28,7 +22,16 @@ app.use(
     credentials: true
   })
 );
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(__dirname + "/public"));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', "https://mosh-app.herokuapp.com");
+  next();
+});
 
+const session = expresssession({ secret: config.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { maxAge: 7200000 } });
+app.use(session);
 const routes = require("./routes");
 app.get("/", (req, res) => res.send("server is up and running"));
 app.use(routes);
