@@ -70,15 +70,18 @@ module.exports = {
         }
     },
     getMatches: async function (req, res) {
+        if (!req.session.user.id) return;
         try {
             // users with whom i have matched
             const [swipes, metadata] = await db.sequelize.query(
                 `SELECT  u.id, u.firstName, u.lastName, b.imageUrl
-                    FROM Users u 
-                    LEFT JOIN swipes s ON s.swiperId = ${req.session.user.id} AND liked = true
-                    JOIN basicinfos b ON b.UserId = u.id
-                    WHERE s.swipeeId IN (SELECT swiperId FROM swipes WHERE swipeeId = ${req.session.user.id} AND liked = true)
-                    AND u.id != ${req.session.user.id};
+                FROM swipes s
+                JOIN users u ON u.id = s.swiperId
+                JOIN basicinfos b ON b.UserId = u.id
+                WHERE u.id != ${req.session.user.id}
+                AND (s.swipeeId = ${req.session.user.id} AND s.liked = true
+                    AND s.swiperId IN (SELECT swipeeId FROM swipes WHERE swiperId = ${req.session.user.id}
+                    AND liked = true));
                 `);
             res.json(swipes);
         } catch (err) {
