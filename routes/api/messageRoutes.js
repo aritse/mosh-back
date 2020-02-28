@@ -10,4 +10,6 @@ router.route("/:id").delete(messageController.deleteSingleMessage);
 router.route("/sender/:id").delete(messageController.deleteSenderMessages);
 router.route("/receiver/:id").delete(messageController.deleteReceiverMessages);
 
+router.route("/all").get(messageController.getChatMessages);
+
 module.exports = router;

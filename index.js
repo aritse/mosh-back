@@ -24,7 +24,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(
   cors({
     // origin: ["https://moshsocial.herokuapp.com"],
-    origin: [config.CORS_ORIGIN],
+    origin: config.CORS_ORIGIN,
     credentials: true
   })
 );
@@ -39,6 +39,8 @@ db.sequelize.sync({ force: false }).then(() => {
 
 function handleSocket(socket) {
   socket.on("join", ({ name, room }, callback) => {
+    name = name || "Chris";
+    room = room || "99";
     const { error, user } = addUser({ id: socket.id, name, room });
 
     if (error) return callback(error);
