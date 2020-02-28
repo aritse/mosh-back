@@ -79,22 +79,28 @@ module.exports = {
             res.status(500).json(err.message);
         }
     },
-    // PUT route for updating user
-    // route: /api/user/:id
+
     updateBio: async function (req, res) {
-        try {
-            const userData = await db.User.findOne({ id: req.session.user.id });
-            userData.bio = req.body.bio;
-            await userData.save({ fields: ['bio'] });
-            let { id, firstName, lastName, email, zipcode, bio } = userData;
-            const result = { id, firstName, lastName, email, zipcode, bio };
-            res.json(result);
-        } catch (err) {
-            res.status(500).json(err.message);
-        }
+        // try {
+        //     const userData = await db.User.findOne({ id: req.session.user.id });
+        //     userData.bio = req.body.bio;
+        //     await userData.save({ fields: ['id', 'bio'] });
+        //     let { id, firstName, lastName, email, zipcode, bio } = userData;
+        //     const result = { id, firstName, lastName, email, zipcode, bio };
+        //     res.json(result);
+        // } catch (err) {
+        //     res.status(500).json(err.message);
+        // }
+        db.User.update(req.body,
+            {
+                where: {
+                    id: req.session.user.id
+                }
+            }).then(bio => {
+                res.json(bio)
+            })
     },
-    // PUT route for updating user
-    // route: /api/user/:id
+
     updatePassword: async function (req, res) {
         try {
             const userData = await db.User.findOne({ id: req.params.id });
