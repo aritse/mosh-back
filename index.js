@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Origin', "https://uwproj3-ui.herokuapp.com");
   next();
 });
 
