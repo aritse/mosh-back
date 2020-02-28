@@ -5,7 +5,7 @@ const production = {
 };
 
 const development = {
-  CORS_ORIGIN: "http://localhost:3000",
+  CORS_ORIGIN: ["http://localhost:3000"],
   PORT: 8080,
   SESSION_SECRET: "yoursecret"
 };

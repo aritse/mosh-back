@@ -25,10 +25,6 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', "https://mosh-app.herokuapp.com");
-  next();
-});
 
 const session = expresssession({ secret: config.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { maxAge: 7200000 } });
 app.use(session);

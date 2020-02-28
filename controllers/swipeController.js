@@ -59,12 +59,14 @@ module.exports = {
     getMatchCount: async function (req, res) {
         try {
             const [matchCount, metadata] = await db.sequelize.query(
-                `SELECT COUNT(*)
+                `SELECT COUNT(*) as Count
                 FROM Swipes 
                 WHERE swiperId = ${req.session.user.id || 1} AND liked = true
                 AND swipeeId IN (SELECT swiperId FROM swipes WHERE swipeeId = ${req.session.user.id || 1} AND liked = true);
             `
-            )
+            );
+
+            res.json(matchCount);
         } catch (e) {
             res.json(e.message);
         }
